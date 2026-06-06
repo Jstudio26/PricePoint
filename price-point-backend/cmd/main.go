@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"price-point-backend/internal/auth"
 	"price-point-backend/internal/calculator"
@@ -28,12 +29,28 @@ func main() {
 	r.Use(gin.Logger())   // Munculkan log setiap request di terminal
 	r.Use(gin.Recovery()) // Mencegah server mati jika ada panic
 
-	// 4. Middleware CORS (Hanya izinkan origin frontend yang terdaftar)
+	// 4. Middleware CORS (Izinkan multiple origins)
 	r.Use(func(c *gin.Context) {
-		allowedOrigin := os.Getenv("FRONTEND_URL")
-		if allowedOrigin == "" {
-			allowedOrigin = "http://localhost:3000"
+		origin := c.Request.Header.Get("Origin")
+		allowedOriginsStr := os.Getenv("FRONTEND_URL")
+		if allowedOriginsStr == "" {
+			allowedOriginsStr = "http://localhost:3000"
 		}
+		
+		allowedOrigin := "http://localhost:3000"
+		origins := strings.Split(allowedOriginsStr, ",")
+		
+		if origin != "" {
+			for _, o := range origins {
+				if strings.TrimSpace(o) == origin {
+					allowedOrigin = origin
+					break
+				}
+			}
+		} else if len(origins) > 0 {
+			allowedOrigin = strings.TrimSpace(origins[0])
+		}
+
 		c.Writer.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, PATCH, OPTIONS")
