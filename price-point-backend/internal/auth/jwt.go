@@ -22,13 +22,14 @@ func GenerateToken(userID string) (string, error) {
 }
 
 // Middleware: Mengecek apakah user mengirim token JWT yang valid
+// Semua endpoint yang menggunakan middleware ini WAJIB login (tidak ada Guest)
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
-			// Jika tidak ada token, anggap sebagai Guest
-			c.Set("userID", "")
-			c.Next()
+			// Tidak ada token = tidak boleh akses endpoint protected
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Autentikasi diperlukan. Silakan login terlebih dahulu."})
+			c.Abort()
 			return
 		}
 
@@ -42,6 +43,10 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		secret := os.Getenv("JWT_SECRET")
 		token, err := jwt.Parse(tokenString[1], func(token *jwt.Token) (interface{}, error) {
+			// Pastikan signing method sesuai (mencegah alg switch attack)
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, jwt.ErrSignatureInvalid
+			}
 			return []byte(secret), nil
 		})
 
@@ -52,8 +57,21 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		// Simpan userID ke context agar bisa dipakai di endpoint selanjutnya
-		claims := token.Claims.(jwt.MapClaims)
-		c.Set("userID", claims["user_id"].(string))
+		claims, ok := token.Claims.(jwt.MapClaims)
+		if !ok {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Token claims tidak valid"})
+			c.Abort()
+			return
+		}
+
+		userIDVal, ok := claims["user_id"].(string)
+		if !ok || userIDVal == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "User ID tidak ditemukan dalam token"})
+			c.Abort()
+			return
+		}
+
+		c.Set("userID", userIDVal)
 		c.Next()
 	}
 }

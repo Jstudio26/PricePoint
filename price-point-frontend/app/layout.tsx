@@ -1,26 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
-// 1. IMPORT NAVBAR BARU
-import Navbar from "@/components/navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// 🔥 KUNCINYA DI SINI: Pakai kurung kurawal!
+import { Navigation } from "@/components/Navigation";
+
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  variable: "--font-bebas",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSans = DM_Sans({
   subsets: ["latin"],
+  variable: "--font-dm-sans",
 });
 
 export const metadata: Metadata = {
-  title: "PricePoint - Inverse Margin Pricing",
-  description: "Administrasi Niaga UNSRAT",
-  // 2. TAMBAHKAN FAVICON (Ambil dari logo price.svg kamu)
+  title: "PricePoint | Analytics Cloud",
+  description:
+    "Platform analitik kelayakan bisnis dan penentuan harga retail untuk UMKM dan Administrasi Niaga UNSRAT.",
   icons: {
-    icon: "/favicon.ico", // Pastikan file ini ada di folder public/
+    icon: "/price.svg",
   },
 };
 
@@ -30,14 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // TAMBAHKAN suppressHydrationWarning DI SINI
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${bebasNeue.variable} ${dmSans.variable} antialiased bg-[#FAFAFA] text-[#0A0A0A]`}
       >
         <AuthProvider>
-          {/* 3. PASANG NAVBAR DI SINI, DI ATAS {children} */}
-          <Navbar />
+          {/* PANGGIL NAMED EXPORT-NYA */}
+          <Navigation />
           {children}
         </AuthProvider>
       </body>

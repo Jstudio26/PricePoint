@@ -28,11 +28,16 @@ func main() {
 	r.Use(gin.Logger())   // Munculkan log setiap request di terminal
 	r.Use(gin.Recovery()) // Mencegah server mati jika ada panic
 
-	// 4. Middleware CORS (Penting agar Next.js bisa akses)
+	// 4. Middleware CORS (Hanya izinkan origin frontend yang terdaftar)
 	r.Use(func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		allowedOrigin := os.Getenv("FRONTEND_URL")
+		if allowedOrigin == "" {
+			allowedOrigin = "http://localhost:3000"
+		}
+		c.Writer.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, PATCH, OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
 			return
@@ -64,6 +69,7 @@ func main() {
 		{
 			sims.POST("/save", handlers.SaveSimulation)
 			sims.GET("/history", handlers.GetHistory)
+			sims.DELETE("/:id", handlers.DeleteSimulation)
 		}
 	}
 

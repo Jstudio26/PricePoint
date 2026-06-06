@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  // Sesuaikan port ini dengan port Golang kamu (biasanya 8080)
-  baseURL: "http://localhost:8080/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api",
 });
 
 // Otomatis menyisipkan token di setiap request jika sudah login
