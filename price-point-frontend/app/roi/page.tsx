@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import ToolGuide from "@/components/ToolGuide";
 import {
   ArrowLeft,
   TrendingUp,
@@ -116,6 +117,18 @@ export default function ROICalculatorPage() {
 
       {/* MAIN CONTENT */}
       <main className="max-w-7xl mx-auto px-6 -mt-20 relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-12">
+          <ToolGuide
+            title="Evaluasi ROI dan Payback Period"
+            description="Masukkan modal awal dan target profit untuk melihat seberapa cepat investasi Anda kembali."
+            items={[
+              "Isi total modal awal (CAPEX) dan target profit bersih per bulan.",
+              "Lihat Payback Period dan ROI tahunan secara otomatis.",
+              "Gunakan angka ini untuk presentasi investor atau perencanaan bisnis.",
+              "Pastikan target profit realistis dan sesuai kapasitas operasional.",
+            ]}
+          />
+        </div>
         {/* LEFT: INPUT AREA */}
         <section className="lg:col-span-4 space-y-6">
           <div className="bg-white rounded-[2.5rem] shadow-xl shadow-black/[0.02] border border-gray-100 p-8">

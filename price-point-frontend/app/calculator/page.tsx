@@ -26,6 +26,7 @@ import {
   Tooltip as ChartTooltip,
 } from "recharts";
 import Link from "next/link";
+import ToolGuide from "@/components/ToolGuide";
 
 export default function CalculatorPage() {
   const { isAuthenticated, isInitialized } = useAuth();
@@ -215,7 +216,7 @@ export default function CalculatorPage() {
       <Toaster position="top-center" />
 
       {/* TOP NAVIGATION */}
-      <div className="w-full bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="w-full bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link
             href="/"
@@ -235,6 +236,18 @@ export default function CalculatorPage() {
       </div>
 
       <main className="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
+        <div className="lg:col-span-12">
+          <ToolGuide
+            title="Gunakan kalkulator harga jual"
+            description="Masukkan data biaya dan margin di panel kiri untuk melihat rekomendasi harga jual secara otomatis."
+            items={[
+              "Isi HPP, OPEX, margin, dan nama produk.",
+              "Pilih apakah harga sudah termasuk PPN 12%.",
+              "Harga jual rekomendasi muncul otomatis saat data terisi.",
+              "Salin, ekspor CSV, atau simpan hasil jika diperlukan.",
+            ]}
+          />
+        </div>
         {/* LEFT: INPUT */}
         <section className="lg:col-span-4 space-y-6">
           <div className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-xl shadow-black/[0.02] relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF6B00]/5">

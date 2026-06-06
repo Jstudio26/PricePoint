@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import ToolGuide from "@/components/ToolGuide";
 import {
   ArrowLeft,
   Factory,
@@ -136,6 +137,18 @@ export default function DepreciationPage() {
 
       {/* MAIN CONTENT */}
       <main className="max-w-7xl mx-auto px-6 -mt-20 relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-12">
+          <ToolGuide
+            title="Hitung penyusutan aset dengan mudah"
+            description="Isi data aset dan umur ekonomis agar sistem menghitung beban penyusutan tahunan dan bulanan."
+            items={[
+              "Isi nama aset, harga perolehan, nilai sisa, dan umur ekonomis.",
+              "Lihat beban penyusutan tahunan dan bulanan secara instan.",
+              "Gunakan tombol ekspor ke OPEX bila ingin memasukkan beban ke kalkulator utama.",
+              "Pastikan nilai sisa tidak lebih tinggi dari harga perolehan.",
+            ]}
+          />
+        </div>
         {/* LEFT: INPUT AREA */}
         <section className="lg:col-span-4 space-y-6">
           <div className="bg-white rounded-[2.5rem] shadow-xl shadow-black/[0.02] border border-gray-100 p-8">

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import ToolGuide from "@/components/ToolGuide";
 import {
   ArrowLeft,
   Landmark,
@@ -107,6 +108,18 @@ export default function TaxCalculatorPage() {
 
       {/* MAIN CONTENT */}
       <main className="max-w-7xl mx-auto px-6 -mt-20 relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-12">
+          <ToolGuide
+            title="Cek Pajak UMKM dan PPN 12%"
+            description="Masukkan harga jual dan omset bulanan untuk melihat komponen DPP, PPN, dan PPh Final UMKM."
+            items={[
+              "Masukkan harga akhir yang sudah termasuk PPN 12%.",
+              "Dapatkan DPP dan besaran PPN secara otomatis.",
+              "Isi omset kotor bulanan untuk menghitung PPh Final UMKM 0.5%.",
+              "Gunakan hasil untuk memastikan kepatuhan perpajakan.",
+            ]}
+          />
+        </div>
         {/* LEFT: INPUT AREA */}
         <section className="lg:col-span-4 space-y-6">
           {/* Card 1: Input Harga Jual (PPN) */}

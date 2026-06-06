@@ -2,14 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Target,
-
-  Package,
-  Activity,
-  Lightbulb,
-} from "lucide-react";
+import ToolGuide from "@/components/ToolGuide";
+import { ArrowLeft, Target, Package, Activity, Lightbulb } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -134,6 +128,18 @@ export default function BepAnalyzerPage() {
 
       {/* MAIN CONTENT */}
       <main className="max-w-7xl mx-auto px-6 -mt-20 relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-12">
+          <ToolGuide
+            title="Analisis Break-Even Point"
+            description="Isi biaya tetap, biaya variabel, dan harga jual untuk melihat kapan bisnis Anda mulai profit."
+            items={[
+              "Isi biaya tetap bulanan, biaya variabel per unit, dan harga jual per unit.",
+              "Nantinya titik impas akan tercetak dalam unit dan rupiah.",
+              "Grafik menunjukkan kapan pendapatan menutupi total biaya.",
+              "Gunakan hasil untuk menentukan target volume penjualan.",
+            ]}
+          />
+        </div>
         {/* LEFT: INPUT AREA */}
         <section className="lg:col-span-4 space-y-6">
           <div className="bg-white rounded-[2.5rem] shadow-xl shadow-black/2 border border-gray-100 p-8">
@@ -372,10 +378,7 @@ export default function BepAnalyzerPage() {
             {/* Business Insight Bot */}
             {sellingPrice > variableCost && (
               <div className="mt-8 bg-linear-to-br from-[#FFC400]/10 to-[#FF6B00]/10 border border-[#FF6B00]/20 p-6 rounded-2xl relative overflow-hidden flex gap-4 items-start">
-                <Lightbulb
-                  className="text-[#FF6B00] shrink-0 mt-1"
-                  size={24}
-                />
+                <Lightbulb className="text-[#FF6B00] shrink-0 mt-1" size={24} />
                 <p className="font-body text-sm font-bold leading-relaxed text-[#0A0A0A]">
                   <strong className="text-[#FF6B00] uppercase tracking-widest text-[10px] block mb-1">
                     Business Insight:

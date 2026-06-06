@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = useCallback(
     (newToken: string) => {
       localStorage.setItem("token", newToken);
+      document.cookie = `token=${newToken}; path=/; max-age=86400; SameSite=Lax`;
       setToken(newToken);
       router.push("/");
     },
@@ -51,6 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = useCallback(() => {
     localStorage.removeItem("token");
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     setToken(null);
     router.push("/login");
   }, [router]);

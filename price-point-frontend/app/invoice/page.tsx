@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import ToolGuide from "@/components/ToolGuide";
 import {
   ArrowLeft,
   FileText,
@@ -12,7 +13,6 @@ import {
   UserCircle,
   Calendar as CalendarIcon,
   Receipt,
-  Download,
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -151,6 +151,18 @@ export default function InvoiceGeneratorPage() {
 
       {/* MAIN CONTENT */}
       <main className="max-w-7xl mx-auto px-6 -mt-20 relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8 pb-32 no-print">
+        <div className="lg:col-span-12">
+          <ToolGuide
+            title="Buat Invoice atau Quotation cepat"
+            description="Isi data dokumen, klien, dan item untuk melihat total otomatis sekaligus membuat dokumen siap cetak."
+            items={[
+              "Pilih tipe dokumen Invoice atau Quotation.",
+              "Isi nomor dokumen, tanggal terbit, dan data klien.",
+              "Tambahkan item barang/jasa serta harga dan kuantitas.",
+              "Cetak dokumen setelah data lengkap atau simpan sebagai PDF.",
+            ]}
+          />
+        </div>
         {/* LEFT: EDITOR & SETTINGS (Tidak ikut tercetak) */}
         <section className="lg:col-span-5 space-y-6">
           <div className="bg-white rounded-[2.5rem] shadow-xl shadow-black/[0.02] border border-gray-100 p-8 sticky top-28">

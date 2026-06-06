@@ -9,9 +9,9 @@ import {
   Trash2,
   Save,
   Scale,
-
   Package,
 } from "lucide-react";
+import ToolGuide from "@/components/ToolGuide";
 import toast, { Toaster } from "react-hot-toast";
 
 // --- INTERFACES ---
@@ -151,6 +151,18 @@ export default function HppBuilderPage() {
 
       {/* MAIN CONTENT */}
       <main className="max-w-7xl mx-auto px-6 -mt-20 relative z-20">
+        <div className="mb-8">
+          <ToolGuide
+            title="Bangun HPP resep produk Anda"
+            description="Catat semua bahan baku agar total HPP produk muncul secara akurat dan bisa ditransfer ke kalkulator utama."
+            items={[
+              "Isi nama produk sebelum menambahkan bahan.",
+              "Tambah bahan baku, harga beli, dan jumlah pakai.",
+              "Total HPP dihitung otomatis setiap kali data diubah.",
+              "Klik Kunci HPP untuk menyimpan nilai ke simulator utama.",
+            ]}
+          />
+        </div>
         <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-black/3 border border-gray-100 overflow-hidden">
           {/* TOOLBAR */}
           <div className="p-8 border-b border-gray-50 flex flex-col md:flex-row gap-6 justify-between items-center bg-[#FAFAFA]">
@@ -247,7 +259,9 @@ export default function HppBuilderPage() {
                             Harga Beli
                           </label>
                           <div className="relative">
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[10px]">Rp</span>
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[10px]">
+                              Rp
+                            </span>
                             <input
                               type="number"
                               placeholder="Harga"
